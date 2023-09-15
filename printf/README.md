@@ -1,3 +1,0 @@
-# Printf function
-
-## TODO
