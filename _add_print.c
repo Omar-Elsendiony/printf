@@ -4,11 +4,11 @@ void insertToBuffer(char c, char *buffer, int *pBufferIndex, int *pCountChar)
 {
 	buffer[i] = c;
 	++*(pBufferIndex);
-	++*(pCountChar)
+	++*(pCountChar);
 	if (*pBufferIndex == BUFFER_SIZE)
 	{
 		printBuffer(buffer, BUFFER_SIZE);
-
+	}
 }
 
 void printfBuffer(char *buffer, int size)
