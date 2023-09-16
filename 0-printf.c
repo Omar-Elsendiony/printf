@@ -5,6 +5,7 @@ int _printf(const char *format, ...)
 {
 	va_list valist;
 	int bufferIndex, formatIndex, countChar;
+	char *returnedCharArr;
 	char buffer[1024] = {0};
 	char arr[64] = {0};
 	char modarr[10] = {0};
@@ -24,8 +25,8 @@ int _printf(const char *format, ...)
 			case('%'):
 				if (formatIndex != 0 && format[formatIndex - 1] != '\\')
 				{
-					getSpecifier(&formatIndex, format, arr, &valist, modarr);
-					insertToBufferCharP(arr, buffer, &bufferIndex, &countChar);
+					returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
+					insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
 				}
 				break;
 			case('\\'):
@@ -49,7 +50,9 @@ int main(void)
 	float f = 5.678;
 	int x = 4561;
 	int hx = 4561;
-	_printf("\n**%f**\n%o\n%x", f, x, hx);
-	printf("\n");
+	char *lolo = "polymethyl";
+	int count;
+	count = _printf("\n**%f**\n%o\n%x %s", f, x, hx, lolo);
+	printf("\n%d\n\n", count);
 	return (0);
 }

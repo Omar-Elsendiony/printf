@@ -98,14 +98,16 @@ void convertFromFloat(char *arr, float f)
 }*/
 
 
-void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
+
+char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
 {
     /*int startingIndex;
     char *modifier;*/
     int i = 0;
     ++(*pFormatIndex);
     /*startingIndex = *pFormatIndex;*/
-    while (format[*pFormatIndex] && format[*pFormatIndex] != ' ')
+    while (format[*pFormatIndex])
+    {
         switch(format[*pFormatIndex])
         {
             case('f'):
@@ -114,18 +116,27 @@ void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *vali
                     modifier = malloc((*pFormatIndex) - startingIndex);
                 }*/
                 convertFromFloat(arr, va_arg(*valist, double));
-                return;
+                return (arr);
             case('c'):
+                arr[0] = (char)va_arg(*valist, int);
+                arr[1] = '\0';
+                return (arr);
+                break;
+            case('s'):
+                return (va_arg(*valist, char *));
                 break;
             case('o'):
                 decimalToString(arr, va_arg(*valist, int), 8);
-                return;
+                return (arr);
             case('x'):
                 decimalToString(arr, va_arg(*valist, int), 16);
-                return;
+                return (arr);
             default:
-            modfierString[i] = format[*pFormatIndex];
-            ++i;
-                ++(*pFormatIndex);
+                modfierString[i] = format[*pFormatIndex];
+                ++i;
         }
+        ++(*pFormatIndex);
+
+    }
+    return (arr);
 }
