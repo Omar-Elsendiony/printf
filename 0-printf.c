@@ -7,6 +7,7 @@ int _printf(const char *format, ...)
 	int bufferIndex, formatIndex, countChar;
 	char buffer[1024] = {0};
 	char arr[64] = {0};
+	char modarr[10] = {0};  //a buffer of 10 bytes to store modifeiers and flags instead of malloc
 	/* float temp; */
 	if (format == NULL)
 		return (1);
@@ -23,8 +24,9 @@ int _printf(const char *format, ...)
 			case('%'):
 				if (formatIndex != 0 && format[formatIndex] != '\\')
 				{
-					getSpecifier(&formatIndex, format, arr, &valist);
+					getSpecifier(&formatIndex, format, arr, &valist, modarr);
 					insertToBufferCharP(arr, buffer, &bufferIndex, &countChar);
+
 				}
 				break;
 			case('\\'):
