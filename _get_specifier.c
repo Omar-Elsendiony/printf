@@ -12,7 +12,7 @@ int power(int base, int exp)
     return (number);
 }
 
-int decimalToString(char *str, int num)
+int decimalToString(char *str, int num, int base)
 {
     int i, rem, temp;
     int length;
@@ -27,13 +27,37 @@ int decimalToString(char *str, int num)
     while (temp != 0)
     {
         length++;
-        temp /= 10;
+        temp /= base;
     }
     for (i = 0; i < length; i++)
     {
-        rem = num % 10;
-        num /= 10;
-        str[length - i - 1] = rem + '0';
+        rem = num % base;
+        num /= base;
+	if (rem >= 10)
+	{
+		switch (rem)
+		{
+			case 10:
+				str[length - i - 1] = 'a';
+				break;
+			case 11:
+				str[length - i - 1] = 'b';
+				break;
+			case 12:
+				str[length - i - 1] = 'c';
+				break;
+			case 13:
+				str[length - i - 1] = 'd';
+			case 14:
+				str[length - i - 1] = 'e';
+				break;
+			case 15:
+				str[length - i - 1] = 'f';
+				break;
+		}
+	}
+	else
+        	str[length - i - 1] = rem + '0';
     }
     str[length] = '\0';
     return (length);
@@ -61,9 +85,9 @@ void convertFromFloat(char *arr, float f)
         tempInteger = (int) f;
         decimalPart = tempInteger % (power(10, l));
     }
-    reachedIndex = decimalToString(arr, integerPart);
+    reachedIndex = decimalToString(arr, integerPart, 10);
     arr[reachedIndex++] = '.';
-    lengthDecimalPart = decimalToString(arr + reachedIndex, decimalPart);
+    lengthDecimalPart = decimalToString(arr + reachedIndex, decimalPart, 10);
     arr[reachedIndex + lengthDecimalPart] = '\0';
 }
 
@@ -73,11 +97,12 @@ void convertFromFloat(char *arr, float f)
 }*/
 
 
-void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist)
+void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
 {
     /*int startingIndex;
     char *modifier;*/
     float temp;
+    int i = 0;
     ++(*pFormatIndex);
     /*startingIndex = *pFormatIndex;*/
     switch(format[*pFormatIndex])
@@ -92,6 +117,8 @@ void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *vali
         case('c'):
             break;
         default:
+	    modfierString[i] = format[*pFormatIndex];
+	    ++i;
             ++(*pFormatIndex);
     }
 }
