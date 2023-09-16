@@ -48,6 +48,7 @@ int decimalToString(char *str, int num, int base)
 				break;
 			case 13:
 				str[length - i - 1] = 'd';
+                break;
 			case 14:
 				str[length - i - 1] = 'e';
 				break;
@@ -68,9 +69,9 @@ int decimalToString(char *str, int num, int base)
 void convertFromFloat(char *arr, float f)
 {
     int integerPart, integerPart2, decimalPart, l, tempInteger, reachedIndex, lengthDecimalPart;
-
     integerPart = (int) f;
     integerPart2 = (int)(f * 10);
+    l = 0;
     if (integerPart2 % 10 == 0)
     {
         decimalPart = 0;
@@ -101,24 +102,30 @@ void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *vali
 {
     /*int startingIndex;
     char *modifier;*/
-    float temp;
     int i = 0;
     ++(*pFormatIndex);
     /*startingIndex = *pFormatIndex;*/
-    switch(format[*pFormatIndex])
-    {
-        case('f'):
-            /*if ((*pFormatIndex) - startingIndex)
-            {
-                modifier = malloc((*pFormatIndex) - startingIndex);
-            }*/
-            temp = va_arg(*valist, double);
-            convertFromFloat(arr, temp);
-        case('c'):
-            break;
-        default:
-	    modfierString[i] = format[*pFormatIndex];
-	    ++i;
-            ++(*pFormatIndex);
-    }
+    while (format[*pFormatIndex] && format[*pFormatIndex] != ' ')
+        switch(format[*pFormatIndex])
+        {
+            case('f'):
+                /*if ((*pFormatIndex) - startingIndex)
+                {
+                    modifier = malloc((*pFormatIndex) - startingIndex);
+                }*/
+                convertFromFloat(arr, va_arg(*valist, double));
+                return;
+            case('c'):
+                break;
+            case('o'):
+                decimalToString(arr, va_arg(*valist, int), 8);
+                return;
+            case('x'):
+                decimalToString(arr, va_arg(*valist, int), 16);
+                return;
+            default:
+            modfierString[i] = format[*pFormatIndex];
+            ++i;
+                ++(*pFormatIndex);
+        }
 }

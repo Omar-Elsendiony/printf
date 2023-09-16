@@ -7,7 +7,7 @@ int _printf(const char *format, ...)
 	int bufferIndex, formatIndex, countChar;
 	char buffer[1024] = {0};
 	char arr[64] = {0};
-	char modarr[10] = {0};  //a buffer of 10 bytes to store modifeiers and flags instead of malloc
+	char modarr[10] = {0};
 	/* float temp; */
 	if (format == NULL)
 		return (1);
@@ -22,11 +22,10 @@ int _printf(const char *format, ...)
 		switch(format[formatIndex])
 		{
 			case('%'):
-				if (formatIndex != 0 && format[formatIndex] != '\\')
+				if (formatIndex != 0 && format[formatIndex - 1] != '\\')
 				{
 					getSpecifier(&formatIndex, format, arr, &valist, modarr);
 					insertToBufferCharP(arr, buffer, &bufferIndex, &countChar);
-
 				}
 				break;
 			case('\\'):
@@ -48,9 +47,9 @@ int _printf(const char *format, ...)
 int main(void)
 {
 	float f = 5.678;
-	float f1 = 5.678;
-	float f2 = 5.678;
-	_printf("\n**%f**\n", f);
+	int x = 4561;
+	int hx = 4561;
+	_printf("\n**%f**\n%o\n%x", f, x, hx);
 	printf("\n");
 	return (0);
 }
