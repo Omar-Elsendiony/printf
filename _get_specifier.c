@@ -1,5 +1,17 @@
 #include "main.h"
 
+int power(int base, int exp)
+{
+    int i, number;
+
+    number = 1;
+    for (i = 0; i < exp; i++)
+    {
+        number *= base;
+    }
+    return (number);
+}
+
 int decimalToString(char *str, int num)
 {
     int i, rem, temp;
@@ -7,6 +19,11 @@ int decimalToString(char *str, int num)
 
     temp = num;
     length = 0;
+    if (num == 0)
+    {
+        str[0] = '0';
+        return (1);
+    }
     while (temp != 0)
     {
         length++;
@@ -26,16 +43,24 @@ int decimalToString(char *str, int num)
 
 void convertFromFloat(char *arr, float f)
 {
-    int integerPart, decimalPart, l, tempInteger, reachedIndex, lengthDecimalPart;
+    int integerPart, integerPart2, decimalPart, l, tempInteger, reachedIndex, lengthDecimalPart;
 
     integerPart = (int) f;
-    while ((int)f - f != 0)
+    integerPart2 = (int)(f * 10);
+    if (integerPart2 % 10 == 0)
     {
-        f *= 10;
-        l++;
+        decimalPart = 0;
     }
-    tempInteger = (int) f;
-    decimalPart = tempInteger % (l * 10);
+    else
+    {
+        while ((int)f - f != 0)
+        {
+            f *= 10;
+            l++;
+        }
+        tempInteger = (int) f;
+        decimalPart = tempInteger % (power(10, l));
+    }
     reachedIndex = decimalToString(arr, integerPart);
     arr[reachedIndex++] = '.';
     lengthDecimalPart = decimalToString(arr + reachedIndex, decimalPart);
@@ -48,11 +73,11 @@ void convertFromFloat(char *arr, float f)
 }*/
 
 
-void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list valist)
+void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist)
 {
     /*int startingIndex;
     char *modifier;*/
-
+    float temp;
     ++(*pFormatIndex);
     /*startingIndex = *pFormatIndex;*/
     switch(format[*pFormatIndex])
@@ -62,7 +87,8 @@ void getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list valis
             {
                 modifier = malloc((*pFormatIndex) - startingIndex);
             }*/
-            convertFromFloat(arr, va_arg(valist, double));
+            temp = va_arg(*valist, double);
+            convertFromFloat(arr, temp);
         case('c'):
             break;
         default:
