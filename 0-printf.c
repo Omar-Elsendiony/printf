@@ -51,8 +51,9 @@ int main(void)
 	int x = 4561;
 	int hx = 4561;
 	char *lolo = "polymethyl";
+	char *m = "hello";
 	int count;
-	count = _printf("\n**%f**\n%o\n%x %s", f, x, hx, lolo);
+	count = _printf("\n**%f**\n%o\n%x/n %s", f, x, hx, m);
 	printf("\n%d\n\n", count);
 	return (0);
 }

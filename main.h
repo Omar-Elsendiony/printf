@@ -12,4 +12,5 @@ void printBuffer(char *buffer, int *pBufferIndex, int size);
 void printTillEmpty(char *buffer);
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString);
 void convertFromFloat(char *arr, float f);
+void upperCase(char *arr);
 #endif

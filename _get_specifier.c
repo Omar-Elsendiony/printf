@@ -131,6 +131,11 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
             case('x'):
                 decimalToString(arr, va_arg(*valist, int), 16);
                 return (arr);
+            case('X'):
+                decimalToString(arr, va_arg(*valist, int), 16);
+                upperCase(arr);
+                return (arr);
+
             default:
                 modfierString[i] = format[*pFormatIndex];
                 ++i;

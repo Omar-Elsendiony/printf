@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include "main.h"
+
 void insertToBufferChar(char c, char *buffer, int *pBufferIndex, int *pCountChar)
 {
 	buffer[*(pBufferIndex)] = c;
@@ -48,7 +49,16 @@ void printTillEmpty(char *buffer)
     }
 }
 
+void upperCase(char *arr)
+{
+	int i;
 
+	for (i = 0; arr[i]; ++i)
+	{
+		if (arr[i] >= 'a' && arr[i] <= 'z')
+			arr[i] -= 'a' - 'A';
+	}
+}
 
 /**
  * _putchar - writes the character c to stdout
