@@ -1,4 +1,5 @@
 #include "main.h"
+#include<stdio.h>
 #include <string.h>
 
 int _printf(const char *format, ...)
@@ -38,11 +39,14 @@ int _printf(const char *format, ...)
 
 int main(void)
 {
-	int d = 223;
-	float r = 3.264;
-	char c = 'a';
-	int count;
-	count = _printf("%f\n%X\n%o\n%s\n%c\n", r, d, d, "hello", c);
-	printf("\n%d\n\n", count);
+	int dec = 223;
+	float fraction = 3.264;
+	char character = 'a';
+	char *str = "hello world";
+	int count_our_printf;
+	int count_std_printf;
+	count_our_printf = _printf(" %d\n %i\n %u\n  %o\n %x\n %X\n %f\n %c\n %s\n", dec, dec, dec, dec, dec, dec, fraction, character, str);
+	count_std_printf = printf(" %d\n %i\n %u\n  %o\n %x\n %X\n %f\n %c\n %s\n", dec, dec, dec, dec, dec, dec, fraction, character, str);
+	printf("%d ************ %d\n", count_our_printf, count_std_printf);
 	return (0);
 }

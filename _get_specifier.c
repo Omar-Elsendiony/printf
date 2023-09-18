@@ -11,6 +11,32 @@ int power(int base, int exp)
     }
     return (number);
 }
+int unsignedDecimalToString(char *str, unsigned int num, int base)  //to be discussed
+{
+    int i, rem, temp;
+    int length;
+
+    temp = num;
+    length = 0;
+    if (num == 0)
+    {
+        str[0] = '0';
+        return (1);
+    }
+    while (temp != 0)
+    {
+        length++;
+        temp /= base;
+    }
+    for (i = 0; i < length; i++)
+    {
+        rem = num % base;
+        num /= base;
+	    str[length - i - 1] = rem + '0';
+        str[length] = '\0';
+    }
+    return (length);
+}
 
 int decimalToString(char *str, int num, int base)
 {
@@ -114,6 +140,22 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
             case('i'):
                 decimalToString(arr, va_arg(*valist, int), 10);
                 return (arr);
+            case('u'):
+                unsignedDecimalToString(arr, va_arg(*valist, unsigned int), 10);
+                return (arr);
+            case('b'):
+                unsignedDecimalToString(arr, va_arg(*valist, unsigned int), 2);
+                return (arr);
+            case('o'):
+                decimalToString(arr, va_arg(*valist, int), 8);
+                return (arr);
+            case('x'):
+                decimalToString(arr, va_arg(*valist, int), 16);
+                return (arr);
+            case('X'):
+                decimalToString(arr, va_arg(*valist, int), 16);
+                upperCase(arr);
+                return (arr);
             case('f'):
                 /*if ((*pFormatIndex) - startingIndex)
                 {
@@ -125,22 +167,9 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 arr[0] = (char)va_arg(*valist, int);
                 arr[1] = '\0';
                 return (arr);
-                break;
             case('s'):
                 return (va_arg(*valist, char *));
-                break;
-            case('o'):
-                decimalToString(arr, va_arg(*valist, int), 8);
-                return (arr);
-            case('x'):
-                decimalToString(arr, va_arg(*valist, int), 16);
-                return (arr);
-            case('X'):
-                decimalToString(arr, va_arg(*valist, int), 16);
-                upperCase(arr);
-                return (arr);
-
-            default:
+                        default:
                 modfierString[i] = format[*pFormatIndex];
                 ++i;
         }

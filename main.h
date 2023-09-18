@@ -14,4 +14,5 @@ void printTillEmpty(char *buffer);
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString);
 void convertFromFloat(char *arr, float f);
 void upperCase(char *arr);
+int unsignedDecimalToString(char *str, unsigned int num, int base);
 #endif
