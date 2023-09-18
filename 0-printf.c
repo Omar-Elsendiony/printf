@@ -27,10 +27,10 @@ int _printf(const char *format, ...)
                 insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
 				break;
 			case('\\'):
-				if (format[formatIndex + 1] == '\\') /* TO BE SEEN YETTTTTT*/
-				{
-					++(formatIndex);
-				}
+                insertToBufferChar(format[formatIndex], buffer, &bufferIndex, &countChar);
+                ++(formatIndex);
+                returnedCharArr = getEscapeChar(format[formatIndex]);
+                insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
 				break;
 			default:
 				insertToBufferChar(format[formatIndex], buffer, &bufferIndex, &countChar);
@@ -49,7 +49,7 @@ int main(void)
     char str[20];
     int l = ~x + 1;
     decimalToString(str, 101, 10, 0);
-	_printf("%0+71.34f\n\n%d\n\n", f, x);
+	_printf("%0+71.34f\n\n%6.7d\n\n", f, x);
 	printf("\n%.2d\\n\n\n", l);
 
 	return (0);

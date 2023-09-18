@@ -17,4 +17,7 @@ char **modifierParsing(char *modifier, int *pFlag, int *mFlag, int *sFlag, int *
 char *modifierProcessingFloat(char *widthBeforeDP,char *floatChars, char *precision, int sFlag,int negNum);
 int canBeModifier(int test);
 int decimalToString(char *str, int num, int base, int negNum);
+char *getEscapeChar(char inChar);
+char *modifierProcessingDecimal(int sizeDecimal, char *numChars, char *width, char *precision, int pFlag, int mFlag, int sFlag, int negNum);
+
 #endif

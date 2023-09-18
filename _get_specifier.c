@@ -128,7 +128,7 @@ void insertIntoModifier(char *mod, const char *format, int startingIndex, int la
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modifier)
 {
     float f;
-    int startingIndex, pFlag = 0, sFlag = 0, mFlag = 0, zFlag = 0, negativeNum = 0;
+    int startingIndex, pFlag = 0, sFlag = 0, mFlag = 0, zFlag = 0, negativeNum = 0, tempInt;
     char *temp[2];
     char *width, *precision, *finalString;
     ++(*pFormatIndex);
@@ -154,7 +154,7 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 convertFromFloat(arr, f, negativeNum);
                 width = temp[0];
                 precision = temp[1];
-                finalString = modifierProcessingFloat(width, arr, precision, sFlag, negativeNum);
+                finalString = modifierProcessingFloat(width, arr, precision, pFlag, negativeNum);
                 printf("\n\n%s\n\n", finalString);
                 return (arr);
             case('c'):
@@ -163,8 +163,24 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 return (arr);
                 break;
             case('d'):
-                decimalToString(arr, va_arg(*valist, int), 10, 0);
-                return (arr);
+                if ((*pFormatIndex) - startingIndex)
+                {
+                    modifier = malloc((*pFormatIndex) - startingIndex + 1);
+                    insertIntoModifier(modifier, format, startingIndex, (*pFormatIndex));
+                }
+                tempInt = decimalToString(arr, va_arg(*valist, int), 10, 0);
+                modifierParsing(modifier, &pFlag, &mFlag, &sFlag, &zFlag, temp);
+                printf("\n\n %s %s %d %d %d", temp[1], temp[0], pFlag, zFlag, sFlag);
+                f = va_arg(*valist, double);
+                if (tempInt < 0.0)
+                {
+                    negativeNum = 1;
+                    tempInt *= -1;
+                }
+                width = temp[0];
+                precision = temp[1];
+                finalString = modifierProcessingDecimal(tempInt, arr, width, precision, pFlag, mFlag, sFlag, negativeNum);
+                return (finalString);
                 break;
             case('s'):
                 return (va_arg(*valist, char *));

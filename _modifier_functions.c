@@ -25,34 +25,51 @@ int getNumber(char *numArr)
     return (val);
 }
 
-char *modifierProcessingDecimal(int sizeDecimal, char *width,char *numChars, char *precision, int sFlag,int negNum)
+char *modifierProcessingDecimal(int sizeDecimal, char *numChars, char *width, char *precision, int pFlag, int mFlag, int sFlag, int negNum)
 {
-    int widthNum, numDecimalDigits = 0, numIntegerDigits = 0, i = 0;
-    int precisionNum = 0, diff1, sizeFinalString = 0, reachedIndex = 0  + (sFlag || negNum);
+    int widthNum, diff = 0;
+    int precisionNum = 0, sizeFinalString = 0, reachedIndex = 0  + (pFlag || negNum);
     char *finalString;
 
-    
-    if (floatChars[i++] == '.')
-        numDecimalDigits = getNumber(floatChars + i);
-
-    if (widthBeforeDP != NULL)
+    if (width != NULL)
     {
-        widthNum = getNumber(widthBeforeDP);
+        widthNum = getNumber(width);
     }
     if (precision != NULL)
     {
-        precisionNum = getNumber(precision);
-        diff1 = numDecimalDigits - precisionNum;
-        numDecimalDigits -= diff1;
+        precisionNum = getNumber(precision); /* precision is minimum digits*/
     }
+    sizeFinalString = (widthNum > precisionNum + (pFlag || negNum))? widthNum : precisionNum + (pFlag || negNum);
+    sizeFinalString = (sizeFinalString > sizeDecimal + (pFlag || negNum))? sizeFinalString : sizeDecimal + (pFlag || negNum);
+    finalString = malloc(sizeFinalString + 1);
+    diff = sizeFinalString - sizeDecimal;
+    if (pFlag && !negNum)
+        finalString[0] = '+';
+    if (negNum)
+        finalString[0] = '-';
+    if (mFlag)
+        copyChars(finalString, numChars, &reachedIndex);
+    while (reachedIndex != diff)
+    {
+        if (sFlag)
+            finalString[reachedIndex++] = '0';
+        else if (mFlag)
+            finalString[reachedIndex++] = ' ';
+        else
+            finalString[reachedIndex++] = '0';
+    }
+    if (!mFlag)
+        copyChars(finalString, numChars, &reachedIndex);
+    finalString[reachedIndex] = '\0';
+    return (finalString);
 }
 
 
 
-char *modifierProcessingFloat(char *widthBeforeDP,char *floatChars, char *precision, int sFlag,int negNum)
+char *modifierProcessingFloat(char *widthBeforeDP,char *floatChars, char *precision, int pFlag,int negNum)
 {
     int widthNum, numDecimalDigits = 0, numIntegerDigits = 0, i = 0;
-    int precisionNum = 0, diff1, sizeFinalString = 0, reachedIndex = 0  + (sFlag || negNum);
+    int precisionNum = 0, diff1, sizeFinalString = 0, reachedIndex = 0  + (pFlag || negNum);
     char *finalString;
 
     while(floatChars[i] != '\0' && floatChars[i] != '.')
@@ -74,8 +91,8 @@ char *modifierProcessingFloat(char *widthBeforeDP,char *floatChars, char *precis
         numDecimalDigits -= diff1;
     }
     sizeFinalString = (widthNum > numIntegerDigits + 1 + numDecimalDigits)? widthNum : numIntegerDigits + 1 + numDecimalDigits;
-    finalString = malloc(sizeFinalString + 1 + (sFlag || negNum));
-    if (sFlag && !negNum)
+    finalString = malloc(sizeFinalString + 1 + (pFlag || negNum));
+    if (pFlag && !negNum)
         finalString[0] = '+';
     if (negNum)
         finalString[0] = '-';
