@@ -11,7 +11,7 @@ int power(int base, int exp)
     }
     return (number);
 }
-int unsignedDecimalToString(char *str, unsigned int num, int base)  //to be discussed
+int unsignedDecimalToString(char *str, unsigned int num, int base)  /*to be discussed*/
 {
     int i, rem, temp;
     int length;
