@@ -122,7 +122,19 @@ void convertFromFloat(char *arr, float f)
 {
     return;
 }*/
-
+void handleMinDecimalToStr(char *arr, int num, int base)
+{
+    if (num > 0)
+    {
+       decimalToString(arr, num, base);
+    }
+    else
+    {
+        num = -num;
+        arr[0] = '-';
+        decimalToString(&arr[1], num, base);
+    }
+}
 
 
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
@@ -138,7 +150,7 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
         {
             case('d'):
             case('i'):
-                decimalToString(arr, va_arg(*valist, int), 10);
+                handleMinDecimalToStr(arr, va_arg(*valist, int), 10);
                 return (arr);
             case('u'):
                 unsignedDecimalToString(arr, va_arg(*valist, unsigned int), 10);
