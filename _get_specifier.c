@@ -110,6 +110,10 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
     {
         switch(format[*pFormatIndex])
         {
+            case('d'):
+            case('i'):
+                decimalToString(arr, va_arg(*valist, int), 10);
+                return (arr);
             case('f'):
                 /*if ((*pFormatIndex) - startingIndex)
                 {

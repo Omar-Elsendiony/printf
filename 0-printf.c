@@ -23,17 +23,8 @@ int _printf(const char *format, ...)
 		switch(format[formatIndex])
 		{
 			case('%'):
-				if (formatIndex != 0 && format[formatIndex - 1] != '\\')
-				{
 					returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
 					insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
-				}
-				break;
-			case('\\'):
-				if (format[formatIndex + 1] == '\\') /* TO BE SEEN YETTTTTT*/
-				{
-					++(formatIndex);
-				}
 				break;
 			default:
 				insertToBufferChar(format[formatIndex], buffer, &bufferIndex, &countChar);
@@ -47,13 +38,11 @@ int _printf(const char *format, ...)
 
 int main(void)
 {
-	float f = 5.678;
-	int x = 4561;
-	int hx = 4561;
-	char *lolo = "polymethyl";
-	char *m = "hello";
+	int d = 223;
+	float r = 3.264;
+	char c = 'a';
 	int count;
-	count = _printf("\n**%f**\n%o\n%x/n %s", f, x, hx, m);
+	count = _printf("%f\n%X\n%o\n%s\n%c\n", r, d, d, "hello", c);
 	printf("\n%d\n\n", count);
 	return (0);
 }

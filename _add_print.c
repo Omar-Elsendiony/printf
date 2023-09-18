@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include "main.h"
 
 void insertToBufferChar(char c, char *buffer, int *pBufferIndex, int *pCountChar)
