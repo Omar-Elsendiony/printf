@@ -1,5 +1,5 @@
 #include "main.h"
-#include<stdio.h>
+/* #include<stdio.h> */
 #include <string.h>
 
 int _printf(const char *format, ...)
@@ -36,7 +36,7 @@ int _printf(const char *format, ...)
 	return (countChar);
 }
 
-
+/*
 int main(void)
 {
 	int dec = 223;
@@ -50,3 +50,4 @@ int main(void)
 	printf("%d ************ %d\n", count_our_printf, count_std_printf);
 	return (0);
 }
+*/
