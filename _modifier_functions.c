@@ -25,9 +25,9 @@ int getNumber(char *numArr)
     return (val);
 }
 
-char *modifierProcessingDecimal(int sizeDecimal, char *numChars, char *width, char *precision, int pFlag, int mFlag, int sFlag, int negNum)
+char *modifierProcessingDecimal(int sizeDecimal, char *numChars, char *width, char *precision, int pFlag, int mFlag, int sFlag, int zFlag, int negNum)
 {
-    int widthNum, diff = 0;
+    int widthNum, diff = 0, iterator = 0;
     int precisionNum = 0, sizeFinalString = 0, reachedIndex = 0  + (pFlag || negNum);
     char *finalString;
 
@@ -42,21 +42,22 @@ char *modifierProcessingDecimal(int sizeDecimal, char *numChars, char *width, ch
     sizeFinalString = (widthNum > precisionNum + (pFlag || negNum))? widthNum : precisionNum + (pFlag || negNum);
     sizeFinalString = (sizeFinalString > sizeDecimal + (pFlag || negNum))? sizeFinalString : sizeDecimal + (pFlag || negNum);
     finalString = malloc(sizeFinalString + 1);
-    diff = sizeFinalString - sizeDecimal;
+    diff = sizeFinalString - (sizeDecimal + pFlag);
     if (pFlag && !negNum)
         finalString[0] = '+';
     if (negNum)
         finalString[0] = '-';
     if (mFlag)
         copyChars(finalString, numChars, &reachedIndex);
-    while (reachedIndex != diff)
+    while (iterator != diff)
     {
-        if (sFlag)
+        if (zFlag)
             finalString[reachedIndex++] = '0';
-        else if (mFlag)
+        else if (sFlag || mFlag)
             finalString[reachedIndex++] = ' ';
         else
             finalString[reachedIndex++] = '0';
+        iterator++;
     }
     if (!mFlag)
         copyChars(finalString, numChars, &reachedIndex);

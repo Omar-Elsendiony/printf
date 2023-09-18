@@ -42,15 +42,4 @@ int _printf(const char *format, ...)
 }
 
 
-int main(void)
-{
-	float f = -521.631422222;
-	int x = 101;
-    char str[20];
-    int l = ~x + 1;
-    decimalToString(str, 101, 10, 0);
-	_printf("%0+71.34f\n\n%6.7d\n\n", f, x);
-	printf("\n%.2d\\n\n\n", l);
 
-	return (0);
-}

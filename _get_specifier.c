@@ -179,7 +179,7 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 }
                 width = temp[0];
                 precision = temp[1];
-                finalString = modifierProcessingDecimal(tempInt, arr, width, precision, pFlag, mFlag, sFlag, negativeNum);
+                finalString = modifierProcessingDecimal(tempInt, arr, width, precision, pFlag, mFlag, sFlag, zFlag, negativeNum);
                 return (finalString);
                 break;
             case('s'):

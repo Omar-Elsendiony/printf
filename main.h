@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define BUFFER_SIZE 1024
-int _putchar(char c);
+int _printf(const char *format, ...);
 void insertToBufferChar(char c, char *buffer, int *pBufferIndex, int *pCountChar);
 void insertToBufferCharP(char *subString, char *buffer, int *pBufferIndex, int *pCoutChar);
 void printBuffer(char *buffer, int *pBufferIndex, int size);
@@ -18,6 +18,6 @@ char *modifierProcessingFloat(char *widthBeforeDP,char *floatChars, char *precis
 int canBeModifier(int test);
 int decimalToString(char *str, int num, int base, int negNum);
 char *getEscapeChar(char inChar);
-char *modifierProcessingDecimal(int sizeDecimal, char *numChars, char *width, char *precision, int pFlag, int mFlag, int sFlag, int negNum);
+char *modifierProcessingDecimal(int sizeDecimal, char *numChars, char *width, char *precision, int pFlag, int mFlag, int sFlag, int zFlag, int negNum);
 
 #endif
