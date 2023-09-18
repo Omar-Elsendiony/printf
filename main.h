@@ -15,4 +15,5 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
 void convertFromFloat(char *arr, float f);
 void upperCase(char *arr);
 int unsignedDecimalToString(char *str, unsigned int num, int base);
+int _printf(const char *format, ...);
 #endif
