@@ -27,7 +27,7 @@ int getNumber(char *numArr)
 
 char *modifierProcessingDecimal(int sizeDecimal, char *numChars, char *width, char *precision, int pFlag, int mFlag, int sFlag, int zFlag, int negNum)
 {
-    int widthNum, diff = 0, iterator = 0;
+    int widthNum = 0, diff = 0, iterator = 0;
     int precisionNum = 0, sizeFinalString = 0, reachedIndex = 0  + (pFlag || negNum);
     char *finalString;
 
