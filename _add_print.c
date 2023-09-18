@@ -18,7 +18,7 @@ void insertToBufferCharP(char *subString, char *buffer, int *pBufferIndex, int *
 {
 	int i;
 
-	for (i = 0; subString[i]; ++i)
+	for (i = 0; subString != NULL && subString[i]; ++i)
 	{
 		buffer[*(pBufferIndex)] = subString[i];
 		++*(pBufferIndex);

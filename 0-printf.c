@@ -23,11 +23,8 @@ int _printf(const char *format, ...)
 		switch(format[formatIndex])
 		{
 			case('%'):
-				if (formatIndex != 0 && format[formatIndex - 1] != '\\')
-				{
-					returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
-					insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
-				}
+                returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
+                insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
 				break;
 			case('\\'):
 				if (format[formatIndex + 1] == '\\') /* TO BE SEEN YETTTTTT*/
@@ -47,12 +44,13 @@ int _printf(const char *format, ...)
 
 int main(void)
 {
-	float f = 5.678;
-	int x = 4561;
-	int hx = 4561;
-	char *lolo = "polymethyl";
-	int count;
-	count = _printf("\n**%f**\n%o\n%x %s", f, x, hx, lolo);
-	printf("\n%d\n\n", count);
+	float f = -521.631422222;
+	int x = 101;
+    char str[20];
+    int l = ~x + 1;
+    decimalToString(str, 101, 10, 0);
+	_printf("%0+71.34f\n\n%d\n\n", f, x);
+	printf("\n%.2d\\n\n\n", l);
+
 	return (0);
 }
