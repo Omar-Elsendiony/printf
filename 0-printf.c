@@ -34,7 +34,10 @@ int _printf(const char *format, ...)
 					else
                     {
                         returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
+						if (!returnedCharArr)
+							return (0L);
                         insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
+						free (returnedCharArr);
                     }
 				break;
 			default:
