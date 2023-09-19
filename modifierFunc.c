@@ -206,4 +206,3 @@ char *modifierProcessing(char *arr, char *modarr)
     return outputStr;
 }
 
-/* hello */
