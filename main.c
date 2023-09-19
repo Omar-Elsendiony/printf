@@ -4,7 +4,7 @@
 
 int main(void)
 {
-    _printf("%ssss\nf%c", "my Gruljt lopytry \n", '0');
+    _printf("Dor mee eq\\n");
     printf("%05d\n", -26); 
 
     /*_printf("%+-05d\n", 26);
