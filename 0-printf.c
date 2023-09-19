@@ -9,7 +9,7 @@ int _printf(const char *format, ...)
 	char *returnedCharArr;
 	char buffer[1024] = {0};
 	char arr[64] = {0};
-	char modarr[10] = {0};
+	char modarr[32] = {0};
 	/* float temp; */
 	if (format == NULL)
 		return (1);

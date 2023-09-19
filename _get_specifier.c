@@ -169,10 +169,6 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 upperCase(arr);
                 return (arr);
             case('f'):
-                /*if ((*pFormatIndex) - startingIndex)
-                {
-                    modifier = malloc((*pFormatIndex) - startingIndex);
-                }*/
                 convertFromFloat(arr, va_arg(*valist, double));
                 return (arr);
             case('c'):
@@ -181,7 +177,7 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 return (arr);
             case('s'):
                 return (va_arg(*valist, char *));
-                        default:
+            default:
                 modfierString[i] = format[*pFormatIndex];
                 ++i;
         }
