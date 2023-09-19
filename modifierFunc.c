@@ -61,27 +61,26 @@ char *processing(char *arr, int size, int diff, int pflag, int mflag, int sflag,
             ++i;
         }
     }
-    printf("%s\n", outputPtr);
     if (sflag && diff && zflag && arr[0] != '-')
         outputPtr[0] = ' ';
     else if (sflag && diff && !zflag && arr[0] != '-')
-        outputPtr[i - 1] = ' ';
+        outputPtr[i++] = ' ';
     else if (diff && zflag && arr[0] == '-')
         outputPtr[0] = '-';
     else if (diff && !zflag && arr[0] == '-')
-        outputPtr[i - 1] = '-';
+        outputPtr[i++] = '-';
     if (pflag && diff && zflag && arr[0] != '-')
         outputPtr[0] = '+';
     else if (pflag && diff && !zflag && arr[0] != '-')
-        outputPtr[i - 1] = '+';
+        outputPtr[i++] = '+';
     else if (diff && zflag && arr[0] == '-')
         outputPtr[0] = '-';
     else if (diff && !zflag && arr[0] == '-')
-        outputPtr[i - 1] = '-';
+        outputPtr[i++] = '-';
     if(arr[0] == '-')
-        cpStr(&arr[1], outputPtr);
+        cpStr(&arr[1], outputPtr + i);
     else
-        cpStr(arr, outputPtr);
+        cpStr(arr, outputPtr + i);
     return (outputPtr);
 }
 /*
@@ -200,7 +199,9 @@ char *modifierProcessing(char *arr, char *modarr)
     }
 
     size = width >= len ? width : len;
-    diff = width >= len ? width - len : len - width;
+    size = percsion + (arr[0] == '-') > size ?  percsion + (arr[0] == '-') : size;
+    
+    diff = size > len ? size - len - (pflag)  : 0;
     
     outputStr = processing(arr, size, diff, pflag, mflag, sflag, zflag);
     return outputStr;
