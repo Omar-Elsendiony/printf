@@ -205,3 +205,5 @@ char *modifierProcessing(char *arr, char *modarr)
     outputStr = processing(arr, size, diff, pflag, mflag, sflag, zflag);
     return outputStr;
 }
+
+/* hello */
