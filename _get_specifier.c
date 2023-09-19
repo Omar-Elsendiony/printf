@@ -195,6 +195,13 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
     int i = 0;
     char *strPtr = NULL;
     ++(*pFormatIndex);
+    /*startingIndex = *pFormatIndex;*/
+    if (format[*pFormatIndex] == '\0')
+    {
+        --(*pFormatIndex);
+        arr[0] = 0;
+        return (arr);
+    }
     while (format[*pFormatIndex])
     {
         switch(format[*pFormatIndex])
@@ -236,7 +243,6 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 ++i;
         }
         ++(*pFormatIndex);
-
     }
     return (arr);
 }

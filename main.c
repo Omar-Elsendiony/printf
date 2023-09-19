@@ -1,9 +1,10 @@
 #include "main.h"
 #include <stdio.h>
-#include <string.h>
 
 int main(void)
 {
+    int c = _printf("12345%");
+    printf("\n%d\n", c);
     _printf("%S", "hello\nworld\t");
     /*printf("%05d\n", -26); */
 

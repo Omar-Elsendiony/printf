@@ -16,8 +16,8 @@ int _printf(const char *format, ...)
 	arr = malloc(64);
 	if (!arr)
 		return (0L);
-	if (format == NULL)
-		return (1);
+	if (format == ((void *) 0))
+		return (-1);
 	va_start(valist, format);
 	formatIndex = 0;
 	bufferIndex = 0;

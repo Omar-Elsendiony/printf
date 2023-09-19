@@ -17,17 +17,31 @@ void insertToBufferChar(char c, char *buffer, int *pBufferIndex, int *pCountChar
 void insertToBufferCharP(char *subString, char *buffer, int *pBufferIndex, int *pCountChar)
 {
 	int i;
-
-	for (i = 0; subString[i]; ++i)
-	{
-		buffer[*(pBufferIndex)] = subString[i];
-		++*(pBufferIndex);
-		++*(pCountChar);
-		if (*pBufferIndex == BUFFER_SIZE)
-		{
-			printBuffer(buffer, pBufferIndex, BUFFER_SIZE);
-		}
-	}
+    char myNull [] = "(null)";
+    if (subString != ((void*) 0))
+        for (i = 0; subString[i]; ++i)
+        {
+            buffer[*(pBufferIndex)] = subString[i];
+            ++*(pBufferIndex);
+            ++*(pCountChar);
+            if (*pBufferIndex == BUFFER_SIZE)
+            {
+                printBuffer(buffer, pBufferIndex, BUFFER_SIZE);
+            }
+        }
+    else
+    {
+        for (i = 0; myNull[i] != '\0'; ++i)
+        {
+            buffer[*(pBufferIndex)] = myNull[i];
+            ++*(pBufferIndex);
+            ++*(pCountChar);
+            if (*pBufferIndex == BUFFER_SIZE)
+            {
+                printBuffer(buffer, pBufferIndex, BUFFER_SIZE);
+            }
+        }
+    }
 }
 
 void printBuffer(char *buffer, int *pBufferIndex, int size)
