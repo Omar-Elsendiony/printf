@@ -1,11 +1,10 @@
 #include "main.h"
 #include <stdio.h>
-#include <string.h>
 
 int main(void)
 {
-    _printf("Dor mee eq\\n");
-    printf("%05d\n", -26); 
+    int c = _printf(NULL);
+    printf("\n%d\n", c);
 
     /*_printf("%+-05d\n", 26);
      printf("%+-5d\n", 26);

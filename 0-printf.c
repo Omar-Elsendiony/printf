@@ -11,8 +11,8 @@ int _printf(const char *format, ...)
 	char arr[64] = {0};
 	char modarr[32] = {0};
 	/* float temp; */
-	if (format == NULL)
-		return (1);
+	if (format == ((void *) 0))
+		return (-1);
 	va_start(valist, format);
 	formatIndex = 0;
 	bufferIndex = 0;
