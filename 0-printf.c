@@ -24,8 +24,13 @@ int _printf(const char *format, ...)
 		switch(format[formatIndex])
 		{
 			case('%'):
-					returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
-					insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
+                    if (format[formatIndex + 1] == '%')
+                        insertToBufferChar(format[formatIndex++], buffer, &bufferIndex, &countChar);
+					else
+                    {
+                        returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
+                        insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
+                    }
 				break;
 			default:
 				insertToBufferChar(format[formatIndex], buffer, &bufferIndex, &countChar);
