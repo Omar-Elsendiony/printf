@@ -8,9 +8,14 @@ int _printf(const char *format, ...)
 	int bufferIndex, formatIndex, countChar;
 	char *returnedCharArr;
 	char buffer[1024] = {0};
-	char arr[64] = {0};
+	/*char arr[64] = {0};*/
+	char *arr = NULL;
 	char modarr[32] = {0};
 	/* float temp; */
+
+	arr = malloc(64);
+	if (!arr)
+		return (0L);
 	if (format == NULL)
 		return (1);
 	va_start(valist, format);
@@ -37,6 +42,7 @@ int _printf(const char *format, ...)
 		}
 		++(formatIndex);
 	}
+	free(arr);
 	printTillEmpty(buffer);
 	return (countChar);
 }

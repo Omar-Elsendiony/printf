@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 int power(int base, int exp)
 {
@@ -136,14 +137,64 @@ void handleMinDecimalToStr(char *arr, int num, int base)
     }
 }
 
+char *covertFormatStr(char *str)
+{
+    char *outputStr = NULL;
+    char tmp = 0;
+    int i = 0;
+    int z = 0;
+    int size = 0;
+    while (str[i])
+    {
+        if ((str[i] > 0 && str[i] < 32) || str[i] >= 127)
+        {
+            size += 4;
+        }
+        else
+        {
+            ++size;
+        }
+        ++i;
+    }
+    outputStr = malloc(size + 1);
+    if (!outputStr)
+        return (NULL);
+    i = 0;
+    while (str[z])
+    {
+        tmp = str[z];
+        if ((tmp > 0 && tmp < 32) || tmp >= 127)
+        {
+            outputStr[i++] = '0';
+            outputStr[i++] = 'x';
+            if (tmp < 16)
+            {
+                outputStr[i++] = '0';
+                decimalToString(&outputStr[i], tmp, 16);
+                ++i;
+            }
+            else
+            {
+                decimalToString(&outputStr[i], tmp, 16);
+                i += 2;
+            }
+        }
+        else
+        {
+            outputStr[i] = tmp;
+            ++i;
+        }
+        ++z;
+    }
+    
+    return (outputStr);
+}
 
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
 {
-    /*int startingIndex;
-    char *modifier;*/
     int i = 0;
+    char *strPtr = NULL;
     ++(*pFormatIndex);
-    /*startingIndex = *pFormatIndex;*/
     while (format[*pFormatIndex])
     {
         switch(format[*pFormatIndex])
@@ -177,6 +228,9 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 return (arr);
             case('s'):
                 return (va_arg(*valist, char *));
+            case('S'):
+                strPtr = covertFormatStr(va_arg(*valist, char *));
+                return (strPtr);
             default:
                 modfierString[i] = format[*pFormatIndex];
                 ++i;
