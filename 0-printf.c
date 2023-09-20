@@ -10,7 +10,7 @@ int _printf(const char *format, ...)
 	char buffer[1024] = {0};
 	/*char arr[64] = {0};*/
 	char *arr = NULL;
-	char modarr[32] = {0};
+	char *modarr = NULL;
 	/* float temp; */
 
 	arr = malloc(64);
@@ -46,6 +46,9 @@ int _printf(const char *format, ...)
 		++(formatIndex);
 	}
 	free(arr);
+	if (*modarr != 0)
+		insertToBufferCharP(modarr, buffer, &bufferIndex, &countChar);
+	free (modarr);
 	printTillEmpty(buffer);
 	return (countChar);
 }

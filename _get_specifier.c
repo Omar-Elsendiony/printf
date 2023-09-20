@@ -190,12 +190,47 @@ char *covertFormatStr(char *str)
     return (outputStr);
 }
 
+char * getModifierStr(const char *read, int *i, int *size)
+{
+    char *modfierstring;
+    int z = 0;
+    while (read[*i + z] != 'd' && read[*i + z] != 'i' &&
+           read[*i + z] != 'u' && read[*i + z] != 'b' && 
+           read[*i + z] != 'o' && read[*i + z] != 'x' &&
+           read[*i + z] != 'X' && read[*i + z] != 'c' &&
+           read[*i + z] != 'S' && read[*i + z] != 's' &&
+           read[*i + z] != '\0')
+    {
+        ++z;
+    }
+    modfierstring = malloc(z + 1);
+    if (!modfierstring)
+        return (NULL);
+    *size = z + 1;
+    z = 0;
+    while (read[*i] != 'd' && read[*i] != 'i' &&
+           read[*i] != 'u' && read[*i] != 'b' && 
+           read[*i] != 'o' && read[*i] != 'x' &&
+           read[*i] != 'X' && read[*i] != 'c' &&
+           read[*i] != 'S' && read[*i] != 's' &&
+           read[*i] != '\0')
+    {
+        modfierstring[z] = read[*i];
+        ++z;
+        ++(*i);
+    }
+    --(*i);
+    modfierstring[z] = '\0';
+    printf("%s", modfierstring);
+    return (modfierstring);
+}
+
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
 {
-    int i = 0;
     char *strPtr = NULL;
+    int sizeOfModStr = 0;
+    char *returnedPtr = NULL;
     ++(*pFormatIndex);
-    /*startingIndex = *pFormatIndex;*/
     if (format[*pFormatIndex] == '\0')
     {
         --(*pFormatIndex);
@@ -209,7 +244,9 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
             case('d'):
             case('i'):
                 handleMinDecimalToStr(arr, va_arg(*valist, int), 10);
-                return (modifierProcessing(arr, modfierString));
+                returnedPtr = (modifierProcessing(arr, modfierString));
+                reInit(modfierString, sizeOfModStr);
+                return (returnedPtr);
             case('u'):
                 unsignedDecimalToString(arr, va_arg(*valist, unsigned int), 10);
                 return (arr);
@@ -239,10 +276,12 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 strPtr = covertFormatStr(va_arg(*valist, char *));
                 return (strPtr);
             default:
-                modfierString[i] = format[*pFormatIndex];
-                ++i;
+                modfierString = getModifierStr(format, pFormatIndex, &sizeOfModStr);
+                if (!modfierString)
+                    return (NULL);
         }
         ++(*pFormatIndex);
     }
     return (arr);
 }
+
