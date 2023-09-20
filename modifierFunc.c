@@ -130,7 +130,7 @@ void getFlag(char c,int *i, int *wid, int *per, int *pflag, int *mflag, int *sfl
 
 char *modifierProcessing(char *arr, char *modarr)
 {
-
+    
     int size;
     int len = strLen(arr);
     int diff = 0;
@@ -138,7 +138,7 @@ char *modifierProcessing(char *arr, char *modarr)
     char pflag = 0, mflag = 0, sflag = 0, zflag = 0; /*,lflag = 0, hflag = 0;*/
     int width = 0, percsion = 0;
     int i = 0;   
-
+    
     while (modarr[i])
     {
         if (modarr[i] == '+')

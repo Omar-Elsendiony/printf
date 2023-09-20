@@ -190,9 +190,21 @@ char *covertFormatStr(char *str)
     return (outputStr);
 }
 
-char * getModifierStr(const char *read, int *i, int *size)
+void *Realloc(void *ptr, int size)
 {
-    char *modfierstring;
+    void *tmp = 0;
+    tmp = ptr;
+    if (size == 0)
+        free(ptr);
+    ptr = malloc(size);
+    if (!ptr)
+        return (NULL);
+    free(tmp);
+    return (ptr);
+}
+
+char * getModifierStr(const char *read, char *modifierstring, int *i, int *size)
+{
     int z = 0;
     while (read[*i + z] != 'd' && read[*i + z] != 'i' &&
            read[*i + z] != 'u' && read[*i + z] != 'b' && 
@@ -203,8 +215,8 @@ char * getModifierStr(const char *read, int *i, int *size)
     {
         ++z;
     }
-    modfierstring = malloc(z + 1);
-    if (!modfierstring)
+    modifierstring = Realloc(modifierstring, z + 1);
+    if (!modifierstring)
         return (NULL);
     *size = z + 1;
     z = 0;
@@ -215,14 +227,13 @@ char * getModifierStr(const char *read, int *i, int *size)
            read[*i] != 'S' && read[*i] != 's' &&
            read[*i] != '\0')
     {
-        modfierstring[z] = read[*i];
+        modifierstring[z] = read[*i];
         ++z;
         ++(*i);
     }
     --(*i);
-    modfierstring[z] = '\0';
-    printf("%s", modfierstring);
-    return (modfierstring);
+    modifierstring[z] = '\0';
+    return (modifierstring);
 }
 
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
@@ -245,7 +256,9 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
             case('i'):
                 handleMinDecimalToStr(arr, va_arg(*valist, int), 10);
                 returnedPtr = (modifierProcessing(arr, modfierString));
-                reInit(modfierString, sizeOfModStr);
+                if (!returnedPtr)
+                    return (NULL);
+                reInit(modfierString, sizeOfModStr);             
                 return (returnedPtr);
             case('u'):
                 unsignedDecimalToString(arr, va_arg(*valist, unsigned int), 10);
@@ -276,7 +289,7 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 strPtr = covertFormatStr(va_arg(*valist, char *));
                 return (strPtr);
             default:
-                modfierString = getModifierStr(format, pFormatIndex, &sizeOfModStr);
+                modfierString = getModifierStr(format, modfierString, pFormatIndex, &sizeOfModStr);
                 if (!modfierString)
                     return (NULL);
         }

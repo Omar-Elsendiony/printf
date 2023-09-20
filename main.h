@@ -23,5 +23,6 @@ int strLen(char *str);
 char * modifierProcessing(char *arr, char *modarr);
 char *processing(char *arr, int size, int diff, int pflag, int mflag, int sflag, int zflag);
 void cpStr (char *src, char *des);
-char * getModifierStr(const char *read, int *i, int *size);
+char * getModifierStr(const char *read, char *modifierstring, int *i, int *size);
+void *Realloc(void *ptr, int size);
 #endif

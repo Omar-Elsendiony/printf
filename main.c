@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    _printf("%!\n");
+    _printf("hello%aqz");
     /*int c = _printf("12345%");
     printf("\n%d\n", c);
     _printf("%S", "hello\nworld\t");

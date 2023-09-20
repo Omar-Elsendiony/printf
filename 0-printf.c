@@ -1,5 +1,5 @@
 #include "main.h"
-/* #include<stdio.h> */
+#include<stdio.h> 
 #include <string.h>
 
 int _printf(const char *format, ...)
@@ -10,9 +10,10 @@ int _printf(const char *format, ...)
 	char buffer[1024] = {0};
 	/*char arr[64] = {0};*/
 	char *arr = NULL;
-	char *modarr = NULL;
-	/* float temp; */
-
+	char *modarr = malloc(1);
+	if (!modarr)
+		return (0L);
+	modarr[0] = '\0';
 	arr = malloc(64);
 	if (!arr)
 		return (0L);
@@ -48,7 +49,7 @@ int _printf(const char *format, ...)
 	free(arr);
 	if (*modarr != 0)
 		insertToBufferCharP(modarr, buffer, &bufferIndex, &countChar);
-	free (modarr);
+	
 	printTillEmpty(buffer);
 	return (countChar);
 }
