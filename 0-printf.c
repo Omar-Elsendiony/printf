@@ -46,7 +46,7 @@ int _printf(const char *format, ...)
 		}
 		++(formatIndex);
 	}
-	printBuffer(buffer, &bufferIndex, bufferIndex);
+	printBuffer(buffer, &bufferIndex, bufferIndex + 1);
 	return (countChar);
 }
 
