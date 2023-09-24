@@ -23,4 +23,5 @@ int strLen(char *str);
 char * modifierProcessing(char *arr, char *modarr);
 char *processing(char *arr, int size, int diff, int pflag, int mflag, int sflag, int zflag);
 void cpStr (char *src, char *des);
+int canBeModifier(int test);
 #endif

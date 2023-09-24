@@ -1,5 +1,13 @@
 #include "main.h"
 
+int canBeModifier(int test)
+{
+    if ((test >= '0' && test <= '9') || test == '+' || test == '-' || test == '.' || test == '#' || test == 'l' || test == 'h')
+        return 1;
+    return 0;
+}
+
+
 int power(int base, int exp)
 {
     int i, number;
@@ -139,8 +147,8 @@ void handleMinDecimalToStr(char *arr, int num, int base)
 
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
 {
-    int startingIndex;
-    char *modifier;
+    /*int startingIndex;
+    char *modifier;*/
     int i = 0;
     ++(*pFormatIndex);
     /* if the string format ends with %*/
