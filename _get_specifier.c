@@ -184,8 +184,13 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
             case('s'):
                 return (va_arg(*valist, char *));
             default:
-                modfierString[i] = format[*pFormatIndex];
-                ++i;
+                if (!canBeModifier(format[*pFormatIndex]))
+                {
+                    modfierString[i] = format[*pFormatIndex];
+                    ++i;
+                }
+                else
+                    return ('\0');
         }
         ++(*pFormatIndex);
     }
