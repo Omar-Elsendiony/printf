@@ -50,17 +50,6 @@ void printBuffer(char *buffer, int *pBufferIndex, int size)
 	*pBufferIndex = 0;
 }
 
-void printTillEmpty(char *buffer)
-{
-    int bufferIndex;
-
-    bufferIndex = 0;
-    while (buffer[bufferIndex])
-    {
-	    write(1, &buffer[bufferIndex], 1);
-        bufferIndex++;
-    }
-}
 
 void upperCase(char *arr)
 {
