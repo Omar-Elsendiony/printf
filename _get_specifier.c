@@ -139,11 +139,11 @@ void handleMinDecimalToStr(char *arr, int num, int base)
 
 char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
 {
-    /*int startingIndex;
-    char *modifier;*/
+    int startingIndex;
+    char *modifier;
     int i = 0;
     ++(*pFormatIndex);
-    /*startingIndex = *pFormatIndex;*/
+    /* if the string format ends with %*/
     if (format[*pFormatIndex] == '\0')
     {
         --(*pFormatIndex);
