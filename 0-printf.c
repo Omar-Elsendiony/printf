@@ -37,7 +37,6 @@ int _printf(const char *format, ...)
                         else
                         {
                             insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
-
                         }
                         break;
                     }
