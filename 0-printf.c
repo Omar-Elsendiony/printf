@@ -28,8 +28,13 @@ int _printf(const char *format, ...)
                         insertToBufferChar(format[formatIndex++], buffer, &bufferIndex, &countChar);
 					else
                     {
-                        returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
-                        insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
+                        if (returnedCharArr == NULL)
+                        {
+                            insertToBufferChar('%', buffer, &bufferIndex, &countChar);
+                        }
+                        else
+                            insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
+                        break;
                     }
 				break;
 			default:
