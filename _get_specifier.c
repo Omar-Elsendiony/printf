@@ -149,6 +149,7 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
 {
     /*int startingIndex;
     char *modifier;*/
+    char * s;
     int i = 0;
     ++(*pFormatIndex);
     /* if the string format ends with %*/
@@ -190,6 +191,9 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
                 arr[1] = '\0';
                 return (arr);
             case('s'):
+                s = va_arg(*valist, char *);
+                if (s == NULL)
+                    return ("(null)");
                 return (va_arg(*valist, char *));
             default:
                 if (!canBeModifier(format[*pFormatIndex]))

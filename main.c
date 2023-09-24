@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    int c = _printf("%");
+    int c = _printf("%c", '\0');
     printf("\n%d\n", c);
 
     /*_printf("%+-05d\n", 26);
