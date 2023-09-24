@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    int c = _printf("%0  %cyryreyyrd\n%s", '+', "why are you listening??????yhhytyyyyyyyteeeeeeeeeeeeeeteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+    int c = _printf("%");
     printf("\n%d\n", c);
 
     /*_printf("%+-05d\n", 26);

@@ -194,11 +194,11 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
             default:
                 if (!canBeModifier(format[*pFormatIndex]))
                 {
-                    modfierString[i] = format[*pFormatIndex];
-                    ++i;
-                }
-                else
+                    --(*pFormatIndex);
                     return ('\0');
+                }
+                modfierString[i] = format[*pFormatIndex];
+                ++i;              
         }
         ++(*pFormatIndex);
     }
