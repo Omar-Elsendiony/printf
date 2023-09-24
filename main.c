@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    int c = _printf("%c", '\0');
+    int c = _printf("Complete the sentence: You %s nothing, Jon Snow.\n", (char *)0);
     printf("\n%d\n", c);
 
     /*_printf("%+-05d\n", 26);
