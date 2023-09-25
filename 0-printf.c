@@ -1,5 +1,4 @@
 #include "main.h"
-/* #include<stdio.h> */
 #include <string.h>
 
 int _printf(const char *format, ...)
@@ -34,7 +33,11 @@ int _printf(const char *format, ...)
                         {
                             insertToBufferChar('%', buffer, &bufferIndex, &countChar);
                         }
-                        else
+                        else if (*returnedCharArr == '\0')
+						{
+							insertToBufferChar(*returnedCharArr, buffer, &bufferIndex, &countChar);
+						}
+						else
                         {
                             insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
                         }
@@ -46,7 +49,7 @@ int _printf(const char *format, ...)
 		}
 		++(formatIndex);
 	}
-	printBuffer(buffer, &bufferIndex, bufferIndex + 1);
+	printBuffer(buffer, &bufferIndex, bufferIndex);
 	return (countChar);
 }
 

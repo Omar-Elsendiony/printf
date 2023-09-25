@@ -193,8 +193,8 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
             case('s'):
                 s = va_arg(*valist, char *);
                 if (s == NULL)
-                    return ("(null)");
-                return (va_arg(*valist, char *));
+                    return ((void *) 0);
+                return (s);
             default:
                 if (!canBeModifier(format[*pFormatIndex]))
                 {

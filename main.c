@@ -3,17 +3,18 @@
 
 int main(void)
 {
-    int c = _printf("Complete the sentence: You %s nothing, Jon Snow.\n", (char *)0);
-    printf("\n%d\n", c);
+	int len, len2;
 
-    /*_printf("%+-05d\n", 26);
-     printf("%+-5d\n", 26);
-
-    _printf("%05d\n", 26);
-    printf("%05d\n", 26);
-
-    _printf("%0+5d\n", 26);
-     printf("%0+5d\n", 26);*/
-    
-    return 0;
+	len = _printf("%");
+	len2 = printf("%");
+	fflush(stdout);
+	if (len != len2)
+	{
+        printf("%d\n", len);
+        printf("%d\n", len2);
+		printf("Lengths differ.\n");
+		fflush(stdout);
+		return (1);
+	}
+	return (0);
 }
