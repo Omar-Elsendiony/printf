@@ -168,11 +168,11 @@ char *rotStr(char *s)
         return (0L);
     for (i = 0; s[i]; ++i)
     {
-        if (s[i] > 'a' && s[i] < 'z')
+        if (s[i] >= 'a' && s[i] <= 'z')
         {
             rot[i] = (((s[i] - 'a') + 13) % 26) + 'a';
         }
-        else if (s[i] > 'A' && s[i] < 'Z')
+        else if (s[i] >= 'A' && s[i] <= 'Z')
         {
             rot[i] = (((s[i] - 'A') + 13) % 26) + 'A';
         }
