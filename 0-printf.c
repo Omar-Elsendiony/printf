@@ -6,6 +6,8 @@ int _printf(const char *format, ...)
 	va_list valist;
 	int bufferIndex, formatIndex, countChar;
 	char *returnedCharArr;
+	char mallocFlag = 0;
+	char charflag = 0;
 	char buffer[1024] = {0};
 	char arr[64] = {0};
 	char modarr[32] = {0};
@@ -16,6 +18,7 @@ int _printf(const char *format, ...)
 	formatIndex = 0;
 	bufferIndex = 0;
 	countChar = 0;
+	
 	/*temp = va_arg(valist, double);
 	printf("\n*****%f****\n", temp);*/
 	while (format[formatIndex] != '\0')
@@ -27,19 +30,25 @@ int _printf(const char *format, ...)
                         insertToBufferChar(format[formatIndex++], buffer, &bufferIndex, &countChar);
 					else
                     {
-                        returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr);
+                        returnedCharArr = getSpecifier(&formatIndex, format, arr, &valist, modarr, &mallocFlag, &charflag);
 
                         if (returnedCharArr == NULL)
                         {
                             insertToBufferChar('%', buffer, &bufferIndex, &countChar);
                         }
-                        else if (*returnedCharArr == '\0')
+                        else if (*returnedCharArr == '\0' && charflag == 1)
 						{
 							insertToBufferChar(*returnedCharArr, buffer, &bufferIndex, &countChar);
+							charflag = 0;
 						}
 						else
                         {
                             insertToBufferCharP(returnedCharArr, buffer, &bufferIndex, &countChar);
+							if (mallocFlag == 1)
+							{
+								free(returnedCharArr);
+								mallocFlag = 0;
+							}
                         }
                         break;
                     }

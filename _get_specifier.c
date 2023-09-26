@@ -144,8 +144,48 @@ void handleMinDecimalToStr(char *arr, int num, int base)
     }
 }
 
+char *reverseStr(char * s)
+{
+    int i;
+    int len = strLen(s);
+    char *revStr = malloc(len + 1);
+    if (!revStr)
+        return ((void *) 0);
+    for (i = 0; i < len; ++i)
+    {
+        revStr[i] = s[len - i - 1];
+    }
+    revStr[len] = '\0';
+    return (revStr);
+}
 
-char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString)
+char *rotStr(char *s)
+{
+    int i;
+    int len = strLen(s);
+    char *rot = malloc(len + 1);
+    if (!rot)
+        return (0L);
+    for (i = 0; s[i]; ++i)
+    {
+        if (s[i] > 'a' && s[i] < 'z')
+        {
+            rot[i] = (((s[i] - 'a') + 13) % 26) + 'a';
+        }
+        else if (s[i] > 'A' && s[i] < 'Z')
+        {
+            rot[i] = (((s[i] - 'A') + 13) % 26) + 'A';
+        }
+        else
+        {
+            rot[i] = s[i];
+        }
+    }
+    rot[i] = s[i];
+    return (rot);
+}
+
+char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *valist, char *modfierString, char *mallocFlag, char *charflag)
 {
     /*int startingIndex;
     char *modifier;*/
@@ -189,12 +229,23 @@ char *getSpecifier(int *pFormatIndex, const char *format,char *arr, va_list *val
             case('c'):
                 arr[0] = (char)va_arg(*valist, int);
                 arr[1] = '\0';
+                *charflag = 1;
                 return (arr);
             case('s'):
                 s = va_arg(*valist, char *);
                 if (s == NULL)
                     s = "(null)";
                 return (s);
+            case('r'):
+                *mallocFlag = 1;
+                s = va_arg(*valist, char *);
+                s = reverseStr(s);
+                return (s);
+            case('R'):
+                *mallocFlag = 1;
+                 s = va_arg(*valist, char *);
+                 s = rotStr(s);
+                 return (s);
             default:
                 if (!canBeModifier(format[*pFormatIndex]))
                 {
